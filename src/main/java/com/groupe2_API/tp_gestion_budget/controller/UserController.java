@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping("/ajouter")
     public ResponseEntity<Object> ajouterUser(@RequestBody User user) {
@@ -23,6 +25,22 @@ public class UserController {
         }
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<List<User>> listUser() {
+        return new ResponseEntity<>(userService.userList(), HttpStatus.OK);
+    }
+
+    @PostMapping("/connexion")
+    public ResponseEntity<Object> connexion(@RequestParam("email") String email,
+                                            @RequestParam("motDePasse") String motDePasse) {
+        User verificationUser = userService.connexionUser(email, motDePasse);
+        if (verificationUser != null) {
+            return new ResponseEntity<>("Connection avec Succès", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User n'existe pas", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/modifier")
     public ResponseEntity<Object> modificationUser(@RequestBody User user) {
         User verificationUser = userService.modifierUser(user);
@@ -30,6 +48,16 @@ public class UserController {
             return new ResponseEntity<>("Modification fait avec Succès", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Modification echouer", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/supprimer")
+    public ResponseEntity<String> supprimer(@RequestBody User user) {
+        String message = userService.suppressionUser(user);
+        if (message.equals("Succès")) {
+            return new ResponseEntity<>("Suppression avec Succès", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User n'existe pas", HttpStatus.NOT_FOUND);
         }
     }
 

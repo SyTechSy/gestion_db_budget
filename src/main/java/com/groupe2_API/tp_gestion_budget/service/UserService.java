@@ -49,7 +49,7 @@ public class UserService {
             userRepository.delete(user);
             return "Succès";
         } else {
-            return "supprimer avec succès";
+            return "Existe pas";
         }
     }
 
