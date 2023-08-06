@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class User {
@@ -52,5 +54,9 @@ public class User {
 
     @Column(nullable = false)
     private String motDePasse;
+
+
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    private List<Depense> depenses;
 
 }
