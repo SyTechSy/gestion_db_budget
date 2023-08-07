@@ -20,7 +20,7 @@ public class BudgetController {
     @PostMapping("/ajouter")
     public ResponseEntity<Object> ajouterBudget(@RequestBody Budget budget){
         Budget verificationBudget = budgetService.creerBudget(budget);
-        if (!(verificationBudget == null)){
+        if (verificationBudget != null){
             return new ResponseEntity<>("Budget créée avec Succès", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Cet budget existe déjà", HttpStatus.NOT_FOUND);
