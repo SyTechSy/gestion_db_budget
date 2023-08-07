@@ -7,7 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 @Data
@@ -57,6 +59,7 @@ public class User {
     @Column(nullable = false)
     private String motDePasse;
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Budget> budgets = new ArrayList<>();
@@ -66,4 +69,5 @@ public class User {
         budgets.add(budget);
         budget.setCategorie(new Categorie());
     }*/
+
 }
