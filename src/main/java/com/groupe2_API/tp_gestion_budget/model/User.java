@@ -60,8 +60,8 @@ public class User {
     private List<Budget> budgets = new ArrayList<>();
 
     //Methode permettant à l'utilisateur d'aloue plusieurs bodget
-   public void AjouterBudget(Budget budget){
+  /* public void AjouterBudget(Budget budget){
         budgets.add(budget);
         budget.setCategorie(new Categorie());
-    }
+    }*/
 }

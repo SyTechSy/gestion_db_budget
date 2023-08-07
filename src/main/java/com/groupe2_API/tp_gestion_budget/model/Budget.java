@@ -32,12 +32,16 @@ public class Budget {
 
 
     //========================Relation entre budget et categorie====================
-    @OneToOne
-    @JoinColumn(name = "idCategorie")
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idCategorie", nullable = false)
     private Categorie categorie;
     //========================Relation entre budget et user====================
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "idUser", nullable = false)
     private User user;
 
+   /* @OneToOne
+    @JoinColumn(name = "idSuiviBudget")
+    private Suivi suivi;*/
 }

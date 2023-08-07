@@ -1,6 +1,5 @@
 package com.groupe2_API.tp_gestion_budget.controller;
 import com.groupe2_API.tp_gestion_budget.model.Budget;
-import com.groupe2_API.tp_gestion_budget.model.Categorie;
 import com.groupe2_API.tp_gestion_budget.service.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
