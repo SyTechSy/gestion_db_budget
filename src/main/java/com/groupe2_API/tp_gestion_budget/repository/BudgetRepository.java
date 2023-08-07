@@ -8,5 +8,7 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
     public Budget findByCategorie(Categorie categorie);
 
+
+
     public Budget findByIdBudget(long id);
 }

@@ -21,10 +21,10 @@ public class CategorieController {
     @PostMapping("/ajouter")
     public ResponseEntity<Object> ajouterCategorie(@RequestBody Categorie categorie){
         Categorie verificationCategorie = categorieService.creerCategory(categorie);
-        if (verificationCategorie == null){
+        if (!(verificationCategorie == null)){
             return new ResponseEntity<>("Categorie créée avec Succès", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Cette catégorie existe déjà", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Cette catégorie existe déjà", HttpStatus.NOT_FOUND);
         }
     }
 

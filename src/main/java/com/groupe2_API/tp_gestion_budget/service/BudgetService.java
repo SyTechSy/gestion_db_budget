@@ -18,8 +18,16 @@ public class BudgetService {
     BudgetRepository budgetRepository;
 
     //Methode pour créer un budget
-    public Budget creerBudget(Budget budget) {
+    /*public Budget creerBudget(Budget budget) {
         if (budget.getCategorie() == null) {
+            return budgetRepository.save(budget);
+        } else {
+            return null;
+        }
+    }*/
+
+    public Budget creerBudget(Budget budget) {
+        if (budgetRepository.findByIdBudget(budget.getIdBudget()) == null) {
             return budgetRepository.save(budget);
         } else {
             return null;
