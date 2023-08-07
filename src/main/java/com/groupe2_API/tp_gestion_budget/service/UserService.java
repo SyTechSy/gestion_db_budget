@@ -1,5 +1,6 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
+import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
 import com.groupe2_API.tp_gestion_budget.model.User;
 import com.groupe2_API.tp_gestion_budget.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +32,15 @@ public class UserService {
         }
     }
 
-    /*public ResponseEntity<List<User>> userList(){
-        try {
-            return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
-    }*/
 
     public List<User> listUser(){
-        return userRepository.findAll();
+        if (!userRepository.findAll().isEmpty())
+            return userRepository.findAll();
+        else
+            throw new NoContentException("Aucun Budget n'a été trouver");
     }
+
+
 
     public User modifierUser(User user) {
         if (userRepository.findByIdUser(user.getIdUser()) != null ) {

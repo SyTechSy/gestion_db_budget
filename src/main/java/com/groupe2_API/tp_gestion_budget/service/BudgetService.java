@@ -1,5 +1,7 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
+import com.groupe2_API.tp_gestion_budget.exception.DuplicateException;
+import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
 import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.Categorie;
 import com.groupe2_API.tp_gestion_budget.repository.BudgetRepository;
@@ -30,7 +32,7 @@ public class BudgetService {
         if (budgetRepository.findByIdBudget(budget.getIdBudget()) == null) {
             return budgetRepository.save(budget);
         } else {
-            return null;
+            throw new DuplicateException("Cet Budget n'existe déjà");
         }
     }
 
@@ -39,7 +41,7 @@ public class BudgetService {
         if (budgetRepository.findByIdBudget(budget.getIdBudget()) != null) {
             return budgetRepository.save(budget);
         } else {
-            return null;
+            throw new NotFoundException("Cet Budget n'existe pas");
         }
     }
 
@@ -59,6 +61,6 @@ public class BudgetService {
             budgetRepository.delete(budget);
             return "supprimer avec succèss";
         }
-        return null;
+        throw new NotFoundException("Cet budget n'existe pas");
     }
 }

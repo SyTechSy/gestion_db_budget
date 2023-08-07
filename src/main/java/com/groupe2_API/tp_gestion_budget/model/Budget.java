@@ -1,9 +1,10 @@
 package com.groupe2_API.tp_gestion_budget.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
 
 import lombok.Data;
 
@@ -33,8 +34,9 @@ public class Budget {
 
     //========================Relation entre budget et categorie====================
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCategorie", nullable = false)
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "idCategorie")
     private Categorie categorie;
     //========================Relation entre budget et user====================
     @ManyToOne

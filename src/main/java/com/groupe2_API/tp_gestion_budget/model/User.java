@@ -1,5 +1,6 @@
 package com.groupe2_API.tp_gestion_budget.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -56,6 +57,7 @@ public class User {
     @Column(nullable = false)
     private String motDePasse;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Budget> budgets = new ArrayList<>();
 
