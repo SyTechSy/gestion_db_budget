@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 @Data
@@ -66,4 +67,5 @@ public class User {
         budgets.add(budget);
         budget.setCategorie(new Categorie());
     }
+
 }
