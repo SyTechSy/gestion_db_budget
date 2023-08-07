@@ -6,6 +6,8 @@ import com.groupe2_API.tp_gestion_budget.repository.TypeDepenseRepository;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Data
 public class TypeDepenseService {
@@ -27,4 +29,17 @@ public class TypeDepenseService {
                     return typeDepenseRepository.save(typeDepense);
                     }).orElseThrow(()->new RuntimeException("type de depense non trouvé"));
     }
+
+    public List<TypeDepense> list(){
+        return typeDepenseRepository.findAll();
+    }
+
+
+    public String supprimer(Long id, TypeDepense typeDepense){
+        typeDepenseRepository.deleteById(id);
+        return "suppression effectuée";
+    }
+
+
+
 }
