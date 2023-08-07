@@ -29,8 +29,8 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<User>> listUser() {
-        return new ResponseEntity<>(userService.listUser(), HttpStatus.OK);
+    public List<User> listUser() {
+        return userService.listUser();
     }
 
     @PostMapping("/connexion")
