@@ -18,13 +18,14 @@ public class BudgetService {
     BudgetRepository budgetRepository;
 
     //Methode pour créer un budget
-    public Budget creerBudget(Budget budget){
-        if (budget.getCategorie() == null){
+    public Budget creerBudget(Budget budget) {
+        if (budget.getCategorie() == null) {
             return budgetRepository.save(budget);
         } else {
             return null;
         }
     }
+
     //Methode pour modifer un budget
     public Budget modifierBudget(Budget budget) {
         if (budgetRepository.findByIdBudget(budget.getIdBudget()) != null) {
@@ -35,20 +36,21 @@ public class BudgetService {
     }
 
     // Liste des budgets
-    public ResponseEntity<List<Budget>> getAllBudget(){
+    public ResponseEntity<List<Budget>> getAllBudget() {
         try {
             return new ResponseEntity<>(budgetRepository.findAll(), HttpStatus.OK);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
+
     //Pour supprimer un budget
-    public String SupprimerBudget(Budget budget){
-        if (budgetRepository.findById(budget.getIdBudget()) != null){
+    public String SupprimerBudget(Budget budget) {
+        if (budgetRepository.findById(budget.getIdBudget()) != null) {
             budgetRepository.delete(budget);
             return "supprimer avec succèss";
         }
-        return  null;
+        return null;
     }
 }

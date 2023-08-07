@@ -1,6 +1,5 @@
 package com.groupe2_API.tp_gestion_budget.controller;
-import com.groupe2_API.tp_gestion_budget.model.Budget;
-import com.groupe2_API.tp_gestion_budget.model.Categorie;
+
 import com.groupe2_API.tp_gestion_budget.model.User;
 import com.groupe2_API.tp_gestion_budget.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,9 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+
     UserService userService;
+
 
     @PostMapping("/ajouter")
     public ResponseEntity<Object> ajouterUser(@RequestBody User user) {
@@ -27,10 +28,22 @@ public class UserController {
         }
     }
 
-    @GetMapping("/listeUser")
-    public ResponseEntity<List<User>> getAllUser(){
-        return userService.getAllUser();
+    @GetMapping("/list")
+    public ResponseEntity<List<User>> listUser() {
+        return new ResponseEntity<>(userService.listUser(), HttpStatus.OK);
     }
+
+    @PostMapping("/connexion")
+    public ResponseEntity<Object> connexion(@RequestParam("email") String email,
+                                            @RequestParam("motDePasse") String motDePasse) {
+        User verificationUser = userService.connexionUser(email, motDePasse);
+        if (verificationUser != null) {
+            return new ResponseEntity<>("Connection avec Succès", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User n'existe pas", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/modifier")
     public ResponseEntity<Object> modificationUser(@RequestBody User user) {
         User verificationUser = userService.modifierUser(user);
@@ -40,10 +53,15 @@ public class UserController {
             return new ResponseEntity<>("Modification echouer", HttpStatus.NOT_FOUND);
         }
     }
-    //suppression
-    @DeleteMapping("/supprimer/{idUser}")
-    public String User(@PathVariable int id, @RequestBody User user){
-        userService.suppressionUser(user);
-        return "supprimer avec succèss";
+
+    @DeleteMapping("/supprimer")
+    public ResponseEntity<String> supprimer(@RequestBody User user) {
+        String message = userService.suppressionUser(user);
+        if (message.equals("Succès")) {
+            return new ResponseEntity<>("Suppression avec Succès", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User n'existe pas", HttpStatus.NOT_FOUND);
+        }
     }
+
 }

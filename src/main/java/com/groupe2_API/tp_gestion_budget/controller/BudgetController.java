@@ -1,5 +1,4 @@
 package com.groupe2_API.tp_gestion_budget.controller;
-
 import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.Categorie;
 import com.groupe2_API.tp_gestion_budget.service.BudgetService;
@@ -50,4 +49,5 @@ public class BudgetController {
         budgetService.SupprimerBudget(budget);
         return "supprimer avec succèss";
     }
+
 }

@@ -31,15 +31,18 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<List<User>> getAllUser(){
+    /*public ResponseEntity<List<User>> userList(){
         try {
             return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
         } catch (Exception e){
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
-    }
+    }*/
 
+    public List<User> listUser(){
+        return userRepository.findAll();
+    }
 
     public User modifierUser(User user) {
         if (userRepository.findByIdUser(user.getIdUser()) != null ) {
@@ -57,5 +60,6 @@ public class UserService {
             return "supprimer avec succès";
         }
     }
+
 
 }
