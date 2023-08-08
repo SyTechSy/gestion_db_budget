@@ -44,7 +44,7 @@ public class EmailServiceImpl implements EmailService {
 
         // Catch block to handle the exceptions
         catch (Exception e) {
-            return e.getMessage();
+            return "Email modification echouer...";
         }
     }
 

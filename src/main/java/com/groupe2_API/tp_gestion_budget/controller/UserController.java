@@ -19,14 +19,13 @@ public class UserController {
 
     UserService userService;
 
-
     @PostMapping("/ajouter")
     public ResponseEntity<Object> ajouterUser(@Valid @RequestBody User user) {
         User verificationUser = userService.creerUser(user);
         if (verificationUser != null){
             return new ResponseEntity<>("Inscription fait avec Succès", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Compte existe déja", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Compte existe déja", HttpStatus.NO_CONTENT);
         }
     }
 
