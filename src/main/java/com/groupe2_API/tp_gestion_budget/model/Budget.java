@@ -8,7 +8,9 @@ import jakarta.validation.constraints.NotNull;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -43,7 +45,7 @@ public class Budget {
     @JoinColumn(name = "idUser", nullable = false)
     private User user;
 
-   @OneToOne
-    @JoinColumn(name = "idSuiviBudget")
-    private Suivi suivi;
+
+  @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
+  private List<Depense> depenses = new ArrayList<>();
 }

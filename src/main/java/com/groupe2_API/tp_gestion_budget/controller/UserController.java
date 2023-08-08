@@ -70,9 +70,9 @@ public class UserController {
     }
 
     //Ajout du budget
-  /*  @PostMapping("/{idUser}/addBudget")
+    @PostMapping("/{idUser}/addBudget")
     public ResponseEntity<Object> ajouterBudgets(@PathVariable int idUser, @RequestBody  Budget budget){
-       Optional<User> optionalUser ;
+        Optional<User> optionalUser = userRepository.findById(idUser);
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
             User updateUser = userService.ajouterBudget(user, budget);
@@ -81,6 +81,6 @@ public class UserController {
         } else{
             return new ResponseEntity<>("Utilisateur non trouvé", HttpStatus.NOT_FOUND);
         }
-    }*/
+    }
 
 }
