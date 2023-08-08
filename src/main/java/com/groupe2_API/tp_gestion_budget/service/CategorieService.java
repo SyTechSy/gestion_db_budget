@@ -1,5 +1,7 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
+import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
+import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
 import com.groupe2_API.tp_gestion_budget.model.Categorie;
 import com.groupe2_API.tp_gestion_budget.repository.CategorieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class CategorieService {
         if (categorieRepository.findByTitre(categorie.getTitre()) == null){
             return categorieRepository.save(categorie);
         } else {
-            return null;
+            throw new NoContentException("On peut pas creer un autre categorie qui existé déjà!");
         }
     }
     //La liste des categories
@@ -40,7 +42,7 @@ public class CategorieService {
         if (categorieRepository.findByIdCategorie(categorie.getIdCategorie()) != null) {
             return categorieRepository.save(categorie);
         } else {
-            return null;
+            throw new NotFoundException("On peut modifier quelque chose qui n'existe pas !");
         }
     }
     public String SupprimerCategorie(Categorie categorie){
@@ -48,7 +50,7 @@ public class CategorieService {
            categorieRepository.delete(categorie);
            return "supprimer avec succèss";
        }
-       return  null;
+       throw new NotFoundException("On peut Supprimer quelque chose qui n'existe pas !");
     }
 
 }

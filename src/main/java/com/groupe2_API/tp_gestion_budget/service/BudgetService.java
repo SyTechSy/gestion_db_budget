@@ -20,19 +20,12 @@ public class BudgetService {
     BudgetRepository budgetRepository;
 
     //Methode pour créer un budget
-    /*public Budget creerBudget(Budget budget) {
-        if (budget.getCategorie() == null) {
-            return budgetRepository.save(budget);
-        } else {
-            return null;
-        }
-    }*/
 
     public Budget creerBudget(Budget budget) {
         if (budgetRepository.findByIdBudget(budget.getIdBudget()) == null) {
             return budgetRepository.save(budget);
         } else {
-            throw new DuplicateException("Cet Budget n'existe déjà");
+            throw new DuplicateException("On peut pas creer un autre categorie qui existé déjà!");
         }
     }
 
@@ -41,7 +34,7 @@ public class BudgetService {
         if (budgetRepository.findByIdBudget(budget.getIdBudget()) != null) {
             return budgetRepository.save(budget);
         } else {
-            throw new NotFoundException("Cet Budget n'existe pas");
+            throw new NotFoundException("On peut modifier quelque chose qui n'existe pas !");
         }
     }
 
@@ -57,10 +50,11 @@ public class BudgetService {
 
     //Pour supprimer un budget
     public String SupprimerBudget(Budget budget) {
+
         if (budgetRepository.findById(budget.getIdBudget()) != null) {
             budgetRepository.delete(budget);
             return "supprimer avec succèss";
         }
-        throw new NotFoundException("Cet budget n'existe pas");
+        throw new NotFoundException("On peut supprimer quelque chose qui n'existe pas !");
     }
 }

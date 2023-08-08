@@ -1,12 +1,14 @@
 package com.groupe2_API.tp_gestion_budget.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,14 +32,16 @@ public class Budget {
 
     // ==============================  =======================
 
-    @Column(nullable = false)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "date")
     private Date date;
 
 
     //========================Relation entre budget et categorie====================
 
-    @JsonIgnore
+
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "idCategorie")
     private Categorie categorie;
     //========================Relation entre budget et user====================

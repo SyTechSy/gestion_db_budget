@@ -4,6 +4,8 @@ import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.User;
 import com.groupe2_API.tp_gestion_budget.repository.UserRepository;
 import com.groupe2_API.tp_gestion_budget.service.UserService;
+import jakarta.validation.Valid;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +24,13 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-
     @PostMapping("/ajouter")
-    public ResponseEntity<Object> ajouterUser(@RequestBody User user) {
+    public ResponseEntity<Object> ajouterUser(@Valid @RequestBody User user) {
         User verificationUser = userService.creerUser(user);
         if (verificationUser != null){
             return new ResponseEntity<>("Inscription fait avec Succès", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Compte existe déja", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Compte existe déja", HttpStatus.NO_CONTENT);
         }
     }
 
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     @PutMapping("/modifier")
-    public ResponseEntity<Object> modificationUser(@RequestBody User user) {
+    public ResponseEntity<Object> modificationUser(@Valid @RequestBody User user) {
         User verificationUser = userService.modifierUser(user);
         if (verificationUser != null) {
             return new ResponseEntity<>("Modification fait avec Succès", HttpStatus.OK);
@@ -60,7 +61,7 @@ public class UserController {
     }
 
     @DeleteMapping("/supprimer")
-    public ResponseEntity<String> supprimer(@RequestBody User user) {
+    public ResponseEntity<String> supprimer(@Valid @RequestBody User user) {
         String message = userService.suppressionUser(user);
         if (message.equals("Succès")) {
             return new ResponseEntity<>("Suppression avec Succès", HttpStatus.OK);

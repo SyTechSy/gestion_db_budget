@@ -1,7 +1,11 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
 import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
+<<<<<<< HEAD
 import com.groupe2_API.tp_gestion_budget.model.Budget;
+=======
+import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
+>>>>>>> 61d1113f4644fdcbf1f43e547fdba4d2b8d3c6ca
 import com.groupe2_API.tp_gestion_budget.model.User;
 import com.groupe2_API.tp_gestion_budget.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +29,7 @@ public class UserService {
         if(userRepository.findByEmail(user.getEmail()) == null) {
             return userRepository.save(user);
         } else {
-            return null;
+            throw new NoContentException("Utilisateur n'existe Deja");
         }
     }
 
@@ -33,7 +37,7 @@ public class UserService {
         if (userRepository.findByEmailAndMotDePasse(email, motDePasse) != null) {
             return userRepository.findByEmailAndMotDePasse(email, motDePasse);
         } else {
-            return null;
+            throw new NotFoundException("Utilisateur n'existe pas");
         }
     }
 
@@ -51,7 +55,7 @@ public class UserService {
         if (userRepository.findByIdUser(user.getIdUser()) != null ) {
             return userRepository.save(user);
         } else {
-            return null;
+            throw new NotFoundException("Utilisateur n'existe pas");
         }
     }
 
@@ -60,7 +64,7 @@ public class UserService {
             userRepository.delete(user);
             return "Succès";
         } else {
-            return "supprimer avec succès";
+            throw new NotFoundException("Cet utilisateur n'existe pas");
         }
     }
     //Methode permettant à utilisateur d'ajouter des budgets
