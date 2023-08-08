@@ -26,7 +26,7 @@ public class DepenseController {
     return depenseService.list();
     }
 
-    @GetMapping("/recherche")
+    @GetMapping("/recherche/{titre}")
     public List<Depense> recherche (@PathVariable String titre){
         return depenseService.recherche(titre);
     }

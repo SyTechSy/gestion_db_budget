@@ -13,6 +13,7 @@ import java.util.List;
 public class DepenseService {
 
     public final DepenseRepository depenseRepository;
+    public final BudgetService budgetService;
 
     public Depense creer(Depense depense){
 

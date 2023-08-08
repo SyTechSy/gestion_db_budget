@@ -1,11 +1,13 @@
 package com.groupe2_API.tp_gestion_budget.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,13 +25,15 @@ public class Budget {
     private int montant;
 
 
-    @NotNull(message = "Le champs montant de doit pas être vide")
+    @NotNull(message = "Le champs date debut ne doit pas être vide")
     @Column(nullable = false)
     private Date dateDebut;
 
-    @NotNull(message = "Le champs montant de doit pas être vide")
+    @NotNull(message = "Le champs date fin ne doit pas être vide")
     @Column(nullable = false)
     private Date dateFin;
 
-
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
+    private List<Depense> depenses;
 }
