@@ -43,7 +43,7 @@ public class Budget {
     @JoinColumn(name = "idUser", nullable = false)
     private User user;
 
-   /* @OneToOne
+   @OneToOne
     @JoinColumn(name = "idSuiviBudget")
-    private Suivi suivi;*/
+    private Suivi suivi;
 }

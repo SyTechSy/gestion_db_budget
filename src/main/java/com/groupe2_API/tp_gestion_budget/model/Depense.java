@@ -46,4 +46,8 @@ public class Depense {
     @JoinColumn(name = "idTypeDepense", nullable = false)
     private TypeDepense typeDepense;
 
+    @ManyToOne
+    @JoinColumn(name = "idSuiviBudget", nullable = false)
+    private Suivi suivi;
+
 }

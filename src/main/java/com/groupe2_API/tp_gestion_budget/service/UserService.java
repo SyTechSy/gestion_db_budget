@@ -1,6 +1,7 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
 import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
+import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.User;
 import com.groupe2_API.tp_gestion_budget.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,12 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BudgetService budgetService;
 
     public User creerUser(User user){
         if(userRepository.findByEmail(user.getEmail()) == null) {
@@ -58,6 +63,12 @@ public class UserService {
             return "supprimer avec succès";
         }
     }
+    //Methode permettant à utilisateur d'ajouter des budgets
 
+    public User ajouterBudget(User user, Budget budget){
+        user.getBudgets().add(budget);
+        budget.setUser(user);
+        return userRepository.save(user);
+    }
 
 }

@@ -64,10 +64,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Budget> budgets = new ArrayList<>();
 
-    //Methode permettant à l'utilisateur d'aloue plusieurs bodget
-  /* public void AjouterBudget(Budget budget){
+    //Methode permettant à l'utilisateur d'aloue plusieurs budget
+  public void AjouterBudget(Budget budget){
         budgets.add(budget);
         budget.setCategorie(new Categorie());
-    }*/
+    }
 
 }

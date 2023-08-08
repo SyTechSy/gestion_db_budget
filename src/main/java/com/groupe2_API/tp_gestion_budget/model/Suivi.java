@@ -16,9 +16,9 @@ public class Suivi {
     @Column(nullable = false)
     private Integer idSuiviBudget;
 
-    //@OneToMany(mappedBy = "suivi", cascade = CascadeType.ALL)
-    //private List<Depense> depense = new ArrayList<>();
+    @OneToMany(mappedBy = "suivi", cascade = CascadeType.ALL)
+    private List<Depense> depense = new ArrayList<>();
 
-   /* @OneToOne(mappedBy = "suivi", cascade = CascadeType.ALL)
-    private Budget budget;*/
+    @OneToOne(mappedBy = "suivi", cascade = CascadeType.ALL)
+    private Budget budget;
 }
