@@ -1,6 +1,7 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
 import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
+import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
 import com.groupe2_API.tp_gestion_budget.model.User;
 import com.groupe2_API.tp_gestion_budget.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserService {
         if(userRepository.findByEmail(user.getEmail()) == null) {
             return userRepository.save(user);
         } else {
-            return null;
+            throw new NotFoundException("existe pas");
         }
     }
 
