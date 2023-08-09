@@ -34,7 +34,7 @@ public class Budget {
     private double montantRestant;
     // ==============================  =======================
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    //@DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date")
     private Date date;
 
@@ -48,10 +48,11 @@ public class Budget {
     private Categorie categorie;
     //========================Relation entre budget et user====================
     @ManyToOne
+    @JsonIgnoreProperties(value = {"budgets"})
     @JoinColumn(name = "idUser", nullable = false)
     private User user;
 
-
+    @JsonIgnore
   @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
   private List<Depense> depenses = new ArrayList<>();
 }
