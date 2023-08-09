@@ -1,7 +1,9 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
 import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
+
 import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
+import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.User;
 import com.groupe2_API.tp_gestion_budget.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +16,18 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BudgetService budgetService;
 
     public User creerUser(User user){
         if(userRepository.findByEmail(user.getEmail()) == null) {
             return userRepository.save(user);
         } else {
-            throw new NoContentException("Utilisateur n'existe Deja");
+            throw new NoContentException("On peut pas créer une autre catégorie qui existé déjà!");
         }
     }
 
@@ -29,7 +35,7 @@ public class UserService {
         if (userRepository.findByEmailAndMotDePasse(email, motDePasse) != null) {
             return userRepository.findByEmailAndMotDePasse(email, motDePasse);
         } else {
-            throw new NotFoundException("Utilisateur n'existe pas");
+            throw new NotFoundException("Utilisateur n'existe Déjà");
         }
     }
 
@@ -38,7 +44,7 @@ public class UserService {
         if (!userRepository.findAll().isEmpty())
             return userRepository.findAll();
         else
-            throw new NoContentException("Aucun Budget n'a été trouver");
+            throw new NoContentException("Aucun User n'a été trouver");
     }
 
 
@@ -47,7 +53,7 @@ public class UserService {
         if (userRepository.findByIdUser(user.getIdUser()) != null ) {
             return userRepository.save(user);
         } else {
-            throw new NotFoundException("Utilisateur n'existe pas");
+            throw new NotFoundException("On peut modifier quelque chose qui n'existe pas !");
         }
     }
 
@@ -56,9 +62,15 @@ public class UserService {
             userRepository.delete(user);
             return "Succès";
         } else {
-            throw new NotFoundException("Cet utilisateur n'existe pas");
+            throw new NotFoundException("On peut supprimer quelque chose qui n'existe pas !");
         }
     }
+    //Methode permettant à utilisateur d'ajouter des budgets
 
+    public User ajouterBudget(User user, Budget budget){
+        user.getBudgets().add(budget);
+        budget.setUser(user);
+        return userRepository.save(user);
+    }
 
 }

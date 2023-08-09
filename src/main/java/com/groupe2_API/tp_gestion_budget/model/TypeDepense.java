@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,5 +32,5 @@ public class TypeDepense {
 
     @OneToMany(mappedBy = "typeDepense" , cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Depense> depenses;
+    private List<Depense> depenses = new ArrayList<>();
 }

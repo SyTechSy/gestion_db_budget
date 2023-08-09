@@ -1,28 +1,89 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
 
+import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
+import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
+import com.groupe2_API.tp_gestion_budget.model.Budget;
+import com.groupe2_API.tp_gestion_budget.model.Categorie;
 import com.groupe2_API.tp_gestion_budget.model.Depense;
+import com.groupe2_API.tp_gestion_budget.model.EmailDetails;
+import com.groupe2_API.tp_gestion_budget.repository.BudgetRepository;
 import com.groupe2_API.tp_gestion_budget.repository.DepenseRepository;
-import lombok.Data;
+import com.groupe2_API.tp_gestion_budget.repository.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Data
 public class DepenseService {
 
+<<<<<<< HEAD
     public final DepenseRepository depenseRepository;
     public final BudgetService budgetService;
+=======
+    @Autowired
+     DepenseRepository depenseRepository;
+    @Autowired
+    BudgetService budgetService;
+    @Autowired
+    BudgetRepository budgetRepository;
+>>>>>>> 9a0267b3d03b5819a419d3fb222f64c425df3c2e
 
-    public Depense creer(Depense depense){
+    @Autowired
+    EmailService emailService;
+
+
+
+   /* public Depense creer(Depense depense){
 
         return depenseRepository.save(depense);
+    }*/
+
+    public String creerDepense(Depense depense) {
+        // Récupérer le budget associé à la dépense
+        Budget budget = budgetRepository.findById(depense.getBudget().getIdBudget()).orElse(null);
+
+        if (budget == null) {
+            return "Budget non trouvé pour l'ID spécifié.";
+        }
+
+        double montantDepense = depense.getMontant();
+        double montantBudget = budget.getMontant();
+
+        if (montantDepense > montantBudget) {
+            return "Le montant de la dépense ne doit pas dépasser celui du budget.";
+        } else {
+            // Enregistrer la dépense
+            depenseRepository.save(depense);
+
+            // Mettre à jour le montant restant dans le budget
+            double montantRestant = montantBudget - montantDepense;
+            budget.setMontantRestant(montantRestant);
+            budgetRepository.save(budget);
+
+<<<<<<< HEAD
+            // envoyer emaill a chaque depense
+            String msg = "Votre budget est de " + budget.getMontant() + " Fcfa." + "\nPour une depense de " + budget.getCategorie().getTitre() + ". \nMaintenant votre solde principale est de : " + budget.getMontantRestant() + " Fcfa !";
+            EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
+            emailService.sendSimpleMail(details);
+
+            return "Dépense créée avec succès. Montant restant dans le budget : " + montantRestant;
+=======
+            return "Dépense crée avec succès. Montant restant dans le budget : " + montantRestant;
+>>>>>>> 5c531623258f5be4af1c5cfb0c35da7c61ae6181
+        }
+
+
     }
 
 
     public List<Depense> list(){
-        return depenseRepository.findAll();
+        List <Depense> depenseList=depenseRepository.findAll();
+        if(depenseList.isEmpty())
+            throw new NoContentException("La liste de dépense est introuvable");
+
+        return depenseList;
     }
 
     public Depense modifier(Long id , Depense depense){
@@ -34,19 +95,21 @@ public class DepenseService {
                   d.setMontant(d.getMontant());
                   d.setDate(d.getDate());
                   return depenseRepository.save(d);
-                }).orElseThrow(()->new RuntimeException("Depense non trouver"));
+                }).orElseThrow(()->new RuntimeException("Dépense non trouvée"));
     }
 
     public List<Depense> recherche(String titre){
-
         return (List<Depense>) depenseRepository.findByTitre(titre);
-
     }
 
     public String supprimer(Long id,Depense depense){
-        depenseRepository.deleteById(id);
-        return "suppression effectuée";
+        if(depenseRepository.findById(id)!=null){
+            depenseRepository.save(depense);
+            return "suppression effectuée";
+        }
+        throw new NotFoundException("Cette dépense n'existe pas et ne pas être supprimer");
     }
+
 
 
 
