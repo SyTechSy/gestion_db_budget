@@ -30,12 +30,20 @@ public class Budget {
     @Column(nullable = false)
     private double montant;
 
+    @Column(nullable = false)
+    private double montantRestant;
     // ==============================  =======================
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date")
     private Date date;
+    /*@DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "dateD")
+    private Date dateDebut;
 
+   // @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "dateF")
+    private Date dateFin;*/
 
     //========================Relation entre budget et categorie====================
 
