@@ -29,6 +29,7 @@ public class DepenseService {
     EmailService emailService;
 
 
+
    /* public Depense creer(Depense depense){
 
         return depenseRepository.save(depense);
@@ -55,12 +56,17 @@ public class DepenseService {
             double montantRestant = montantBudget - montantDepense;
             budget.setMontantRestant(montantRestant);
             budgetRepository.save(budget);
+
+<<<<<<< HEAD
             // envoyer emaill a chaque depense
-            String msg = "Votre budget est de " + budget.getMontant() + " Fcfa, maintenant il vous reste " + montantRestant;
+            String msg = "Votre budget est de " + budget.getMontant() + " Fcfa." + "\nPour une depense de " + budget.getCategorie().getTitre() + ". \nMaintenant votre solde principale est de : " + budget.getMontantRestant() + " Fcfa !";
             EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
             emailService.sendSimpleMail(details);
 
+            return "Dépense créée avec succès. Montant restant dans le budget : " + montantRestant;
+=======
             return "Dépense crée avec succès. Montant restant dans le budget : " + montantRestant;
+>>>>>>> 5c531623258f5be4af1c5cfb0c35da7c61ae6181
         }
 
 
