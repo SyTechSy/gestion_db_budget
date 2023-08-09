@@ -21,7 +21,7 @@ public class UserService {
         if(userRepository.findByEmail(user.getEmail()) == null) {
             return userRepository.save(user);
         } else {
-            throw new NoContentException("Utilisateur n'existe Deja");
+            throw new NoContentException("On peut pas creer un autre categorie qui existé déjà!");
         }
     }
 
@@ -29,7 +29,7 @@ public class UserService {
         if (userRepository.findByEmailAndMotDePasse(email, motDePasse) != null) {
             return userRepository.findByEmailAndMotDePasse(email, motDePasse);
         } else {
-            throw new NotFoundException("Utilisateur n'existe pas");
+            throw new NotFoundException("Utilisateur n'existe Deja");
         }
     }
 
@@ -38,7 +38,7 @@ public class UserService {
         if (!userRepository.findAll().isEmpty())
             return userRepository.findAll();
         else
-            throw new NoContentException("Aucun Budget n'a été trouver");
+            throw new NoContentException("Aucun User n'a été trouver");
     }
 
 
@@ -47,7 +47,7 @@ public class UserService {
         if (userRepository.findByIdUser(user.getIdUser()) != null ) {
             return userRepository.save(user);
         } else {
-            throw new NotFoundException("Utilisateur n'existe pas");
+            throw new NotFoundException("On peut modifier quelque chose qui n'existe pas !");
         }
     }
 
@@ -56,7 +56,7 @@ public class UserService {
             userRepository.delete(user);
             return "Succès";
         } else {
-            throw new NotFoundException("Cet utilisateur n'existe pas");
+            throw new NotFoundException("On peut supprimer quelque chose qui n'existe pas !");
         }
     }
 
