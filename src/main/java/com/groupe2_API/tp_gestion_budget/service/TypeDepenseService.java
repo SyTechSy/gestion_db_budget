@@ -1,6 +1,7 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
 
+import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
 import com.groupe2_API.tp_gestion_budget.model.TypeDepense;
 import com.groupe2_API.tp_gestion_budget.repository.TypeDepenseRepository;
 import lombok.Data;
@@ -16,8 +17,14 @@ public class TypeDepenseService {
 
 
     public TypeDepense creer(TypeDepense typeDepense) {
+        if(typeDepense.getLibelle()!=null){
+            return typeDepenseRepository.save(typeDepense);
+        }else{
+            throw new NotFoundException("Ce Type de dépense n'exixte pas");
 
-        return typeDepenseRepository.save(typeDepense);
+        }
+
+
     }
 
 
@@ -27,17 +34,23 @@ public class TypeDepenseService {
                     t.setLibelle(t.getLibelle());
                     t.setDescription(t.getDescription());
                     return typeDepenseRepository.save(typeDepense);
-                    }).orElseThrow(()->new RuntimeException("type de depense non trouvé"));
+                    }).orElseThrow(()->new NotFoundException("type de depense non trouvé"));
     }
 
     public List<TypeDepense> list(){
-        return typeDepenseRepository.findAll();
+        List<TypeDepense> typeDepenseList= typeDepenseRepository.findAll();
+        if(typeDepenseList.isEmpty())
+            throw new NotFoundException("Cette liste est introuvable");
+        return typeDepenseList;
     }
 
 
     public String supprimer(Long id, TypeDepense typeDepense){
-        typeDepenseRepository.deleteById(id);
-        return "suppression effectuée";
+        if(typeDepenseRepository.findById(id)!=null){
+            typeDepenseRepository.save(typeDepense);
+            return "suppression effectuée";
+        }
+        throw new NotFoundException("Suppression est impossible");
     }
 
 

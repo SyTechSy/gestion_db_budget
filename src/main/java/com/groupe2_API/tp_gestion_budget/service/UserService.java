@@ -27,7 +27,7 @@ public class UserService {
         if(userRepository.findByEmail(user.getEmail()) == null) {
             return userRepository.save(user);
         } else {
-            throw new NoContentException("On peut pas creer un autre categorie qui existé déjà!");
+            throw new NoContentException("On peut pas créer une autre catégorie qui existé déjà!");
         }
     }
 
@@ -35,7 +35,7 @@ public class UserService {
         if (userRepository.findByEmailAndMotDePasse(email, motDePasse) != null) {
             return userRepository.findByEmailAndMotDePasse(email, motDePasse);
         } else {
-            throw new NotFoundException("Utilisateur n'existe Deja");
+            throw new NotFoundException("Utilisateur n'existe Déjà");
         }
     }
 
