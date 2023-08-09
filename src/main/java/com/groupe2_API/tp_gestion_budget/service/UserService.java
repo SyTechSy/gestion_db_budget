@@ -1,11 +1,9 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
 import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
-<<<<<<< HEAD
-import com.groupe2_API.tp_gestion_budget.model.Budget;
-=======
+
 import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
->>>>>>> 61d1113f4644fdcbf1f43e547fdba4d2b8d3c6ca
+import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.User;
 import com.groupe2_API.tp_gestion_budget.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
