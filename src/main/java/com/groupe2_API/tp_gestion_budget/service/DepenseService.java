@@ -51,7 +51,7 @@ public class DepenseService {
 
             // Mettre à jour le montant restant dans le budget
             double montantRestant = montantBudget - montantDepense;
-            budget.setMontant(montantRestant);
+            budget.setMontantRestant(montantRestant);
             budgetRepository.save(budget);
             // envoyer emaill a chaque depense
             String msg = "Votre budget est de " + budget.getMontant() + " Fcfa, maintenant il vous reste " + montantRestant;
