@@ -58,7 +58,13 @@ public class Budget {
 >>>>>>> 9a0267b3d03b5819a419d3fb222f64c425df3c2e
     @Column(name = "date")
     private Date date;
+    /*@DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "dateD")
+    private Date dateDebut;
 
+   // @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "dateF")
+    private Date dateFin;*/
 
     //========================Relation entre budget et categorie====================
 
