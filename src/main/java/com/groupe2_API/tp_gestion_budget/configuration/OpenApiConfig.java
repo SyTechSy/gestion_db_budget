@@ -12,8 +12,8 @@ public class OpenApiConfig {
     public OpenAPI apiBudgetOpenApi() {
         return new OpenAPI()
         .info(new Info().title("Budget APi")
-                .description("Une Api de budget pour gerer les depences a travers leur categorie")
-                .version("1.0.0")
+                .description("Une Api de budget pour gérer les dépences à travers leur catégorie")
+                .version("3.1.2")
         );
     }
 

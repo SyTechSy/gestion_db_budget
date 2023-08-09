@@ -25,8 +25,8 @@ public class Budget {
 
     private long idBudget;
 
-    @NotNull(message = "Le champs montant de doit pas être vide")
-    @Min(value = 5000, message = "Désole vous montant doivent être superieur ou egale a 5000 Fcfa")
+    @NotNull(message = "Le champs montant ne doit pas être vide")
+    @Min(value = 5000, message = "Désolez votre montant doit être superieur ou egale à 5000 Fcfa")
     @Column(nullable = false)
     private double montant;
 
