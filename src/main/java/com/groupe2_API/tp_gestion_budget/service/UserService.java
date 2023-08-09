@@ -21,7 +21,7 @@ public class UserService {
         if(userRepository.findByEmail(user.getEmail()) == null) {
             return userRepository.save(user);
         } else {
-            throw new NotFoundException("existe pas");
+            throw new NoContentException("Utilisateur n'existe Deja");
         }
     }
 
@@ -29,7 +29,7 @@ public class UserService {
         if (userRepository.findByEmailAndMotDePasse(email, motDePasse) != null) {
             return userRepository.findByEmailAndMotDePasse(email, motDePasse);
         } else {
-            return null;
+            throw new NotFoundException("Utilisateur n'existe pas");
         }
     }
 
@@ -47,7 +47,7 @@ public class UserService {
         if (userRepository.findByIdUser(user.getIdUser()) != null ) {
             return userRepository.save(user);
         } else {
-            return null;
+            throw new NotFoundException("Utilisateur n'existe pas");
         }
     }
 
@@ -56,7 +56,7 @@ public class UserService {
             userRepository.delete(user);
             return "Succès";
         } else {
-            return "supprimer avec succès";
+            throw new NotFoundException("Cet utilisateur n'existe pas");
         }
     }
 
