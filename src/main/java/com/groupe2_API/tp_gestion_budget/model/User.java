@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.ArrayList;
+
 import java.util.List;
 
 @Data
@@ -56,9 +58,14 @@ public class User {
     @Column(nullable = false)
     private String motDePasse;
 
-
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Depense> depenses;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Budget> budgets = new ArrayList<>();
+
+    //Methode permettant à l'utilisateur d'aloue plusieurs bodget
+   public void AjouterBudget(Budget budget){
+        budgets.add(budget);
+        budget.setCategorie(new Categorie());
+    }
 
 }

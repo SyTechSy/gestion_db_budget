@@ -1,7 +1,14 @@
 package com.groupe2_API.tp_gestion_budget.repository;
 
-import org.springframework.stereotype.Repository;
+import com.groupe2_API.tp_gestion_budget.model.Budget;
+import com.groupe2_API.tp_gestion_budget.model.Categorie;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface BudgetRepository {
+public interface BudgetRepository extends JpaRepository<Budget, Long> {
+
+    public Budget findByCategorie(Categorie categorie);
+
+
+
+    public Budget findByIdBudget(long id);
 }
