@@ -30,6 +30,8 @@ public class Budget {
     @Column(nullable = false)
     private double montant;
 
+    @Column(nullable = false)
+    private double montantRestant;
     // ==============================  =======================
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")

@@ -45,7 +45,7 @@ public class DepenseService {
 
             // Mettre à jour le montant restant dans le budget
             double montantRestant = montantBudget - montantDepense;
-            budget.setMontant(montantRestant);
+            budget.setMontantRestant(montantRestant);
             budgetRepository.save(budget);
 
             return "Dépense créée avec succès. Montant restant dans le budget : " + montantRestant;
