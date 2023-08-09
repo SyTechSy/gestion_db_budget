@@ -1,6 +1,7 @@
 package com.groupe2_API.tp_gestion_budget.service;
 
 import com.groupe2_API.tp_gestion_budget.exception.DuplicateException;
+import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
 import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
 import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.Categorie;
@@ -40,17 +41,21 @@ public class BudgetService {
 
     // Liste des budgets
     public ResponseEntity<List<Budget>> getAllBudget() {
-        try {
+        List<Budget> budgetList = budgetRepository.findAll();
+        if (budgetList.isEmpty())
+            throw new NoContentException("La liste de budget est introuvable");
+
+        return new ResponseEntity<>(budgetList, HttpStatus.OK);
+        /*try {
             return new ResponseEntity<>(budgetRepository.findAll(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+*/
     }
-
     //Pour supprimer un budget
     public String SupprimerBudget(Budget budget) {
-
         if (budgetRepository.findById(budget.getIdBudget()) != null) {
             budgetRepository.delete(budget);
             return "supprimer avec succèss";

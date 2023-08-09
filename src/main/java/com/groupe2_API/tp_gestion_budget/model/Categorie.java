@@ -32,6 +32,6 @@ public class Categorie {
     @Column(nullable = false)
     private String description;
 
-   @OneToOne(mappedBy = "categorie", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "categorie", cascade = CascadeType.ALL)
     private Budget budget;
 }

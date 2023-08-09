@@ -6,7 +6,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -46,4 +48,10 @@ public class Depense {
     @JoinColumn(name = "idTypeDepense", nullable = false)
     private TypeDepense typeDepense;
 
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "idBudget")
+    private Budget budget;
 }

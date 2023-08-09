@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -37,13 +39,17 @@ public class Budget {
 
     //========================Relation entre budget et categorie====================
 
+
     @OneToOne
     @JsonIgnore
     @JoinColumn(name = "idCategorie")
     private Categorie categorie;
     //========================Relation entre budget et user====================
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "idUser", nullable = false)
     private User user;
 
+
+  @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
+  private List<Depense> depenses = new ArrayList<>();
 }
