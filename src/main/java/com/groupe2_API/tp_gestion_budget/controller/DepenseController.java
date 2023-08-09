@@ -17,8 +17,8 @@ public class DepenseController {
 
 
     @PostMapping("/creer")
-    public Depense creer(@RequestBody Depense depense){
-        return depenseService.creer(depense);
+    public String creer(@RequestBody Depense depense){
+        return depenseService.creerDepense(depense);
     }
 
     @GetMapping("")

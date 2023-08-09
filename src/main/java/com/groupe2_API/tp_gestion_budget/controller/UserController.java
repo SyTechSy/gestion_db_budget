@@ -1,6 +1,8 @@
 package com.groupe2_API.tp_gestion_budget.controller;
 
+import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.User;
+import com.groupe2_API.tp_gestion_budget.repository.UserRepository;
 import com.groupe2_API.tp_gestion_budget.service.UserService;
 import jakarta.validation.Valid;
 import org.hibernate.annotations.Parameter;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -18,6 +21,8 @@ public class UserController {
     @Autowired
 
     UserService userService;
+    @Autowired
+    UserRepository userRepository;
 
     @PostMapping("/ajouter")
     public ResponseEntity<Object> ajouterUser(@Valid @RequestBody User user) {
@@ -62,6 +67,20 @@ public class UserController {
             return new ResponseEntity<>("Suppression avec Succès", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("User n'existe pas", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //Ajout du budget
+    @PostMapping("/{idUser}/addBudget")
+    public ResponseEntity<Object> ajouterBudgets(@PathVariable int idUser, @RequestBody  Budget budget){
+        Optional<User> optionalUser = userRepository.findById(idUser);
+        if (optionalUser.isPresent()){
+            User user = optionalUser.get();
+            User updateUser = userService.ajouterBudget(user, budget);
+
+            return new  ResponseEntity<>("Budget ajouté avec succèss",HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>("Utilisateur non trouvé", HttpStatus.NOT_FOUND);
         }
     }
 
