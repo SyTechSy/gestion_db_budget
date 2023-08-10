@@ -15,7 +15,8 @@ import java.io.File;
 // Implémentation de l'interface EmailService
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired private JavaMailSender javaMailSender;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String sender;
