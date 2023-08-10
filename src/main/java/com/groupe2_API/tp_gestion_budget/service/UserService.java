@@ -35,7 +35,7 @@ public class UserService {
         if (userRepository.findByEmailAndMotDePasse(email, motDePasse) != null) {
             return userRepository.findByEmailAndMotDePasse(email, motDePasse);
         } else {
-            throw new NotFoundException("Utilisateur n'existe Déjà");
+            throw new NotFoundException("Utilisateur n'exixte pas!");
         }
     }
 

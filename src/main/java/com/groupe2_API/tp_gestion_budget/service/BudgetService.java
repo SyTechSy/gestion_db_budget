@@ -19,9 +19,7 @@ public class BudgetService {
 
     @Autowired
     BudgetRepository budgetRepository;
-
     //Methode pour créer un budget
-
     public Budget creerBudget(Budget budget) {
         if (budgetRepository.findByIdBudget(budget.getIdBudget()) == null) {
             return budgetRepository.save(budget);

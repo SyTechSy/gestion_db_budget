@@ -4,7 +4,6 @@ package com.groupe2_API.tp_gestion_budget.service;
 import com.groupe2_API.tp_gestion_budget.exception.NoContentException;
 import com.groupe2_API.tp_gestion_budget.exception.NotFoundException;
 import com.groupe2_API.tp_gestion_budget.model.Budget;
-import com.groupe2_API.tp_gestion_budget.model.Categorie;
 import com.groupe2_API.tp_gestion_budget.model.Depense;
 import com.groupe2_API.tp_gestion_budget.model.EmailDetails;
 import com.groupe2_API.tp_gestion_budget.repository.BudgetRepository;
@@ -56,22 +55,13 @@ public class DepenseService {
             double montantRestant = montantBudget - montantDepense;
             budget.setMontantRestant(montantRestant);
             budgetRepository.save(budget);
-
-<<<<<<< HEAD
-            // envoyer emaill a chaque depense
-            String msg = "Votre budget est de " + budget.getMontant() + " Fcfa." + "\nPour une depense de " + budget.getCategorie().getTitre() + ". \nMaintenant votre solde principale est de : " + budget.getMontantRestant() + " Fcfa !";
-            EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
+            // envoyer email à chaque dépense
+            String msg = "Votre budget est de " + budget.getMontant() + " Fcfa." + "\nPour une dépense de " + budget.getCategorie().getTitre() + ". \nMaintenant votre solde principal est de : " + budget.getMontantRestant() + " Fcfa !";
+            EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détails de votre dépense");
             emailService.sendSimpleMail(details);
-
-            return "Dépense créée avec succès. Montant restant dans le budget : " + montantRestant;
-=======
             return "Dépense crée avec succès. Montant restant dans le budget : " + montantRestant;
->>>>>>> 5c531623258f5be4af1c5cfb0c35da7c61ae6181
         }
-
-
     }
-
 
     public List<Depense> list(){
         List <Depense> depenseList=depenseRepository.findAll();
@@ -92,7 +82,6 @@ public class DepenseService {
                   return depenseRepository.save(d);
                 }).orElseThrow(()->new RuntimeException("Dépense non trouvée"));
     }
-
     public List<Depense> recherche(String titre){
         return (List<Depense>) depenseRepository.findByTitre(titre);
     }
@@ -104,8 +93,5 @@ public class DepenseService {
         }
         throw new NotFoundException("Cette dépense n'existe pas et ne pas être supprimer");
     }
-
-
-
 
 }

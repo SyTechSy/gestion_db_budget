@@ -15,7 +15,8 @@ import java.io.File;
 // Implémentation de l'interface EmailService
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired private JavaMailSender javaMailSender;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String sender;
@@ -40,15 +41,14 @@ public class EmailServiceImpl implements EmailService {
 
             // Sending the mail
             javaMailSender.send(mailMessage);
-            return "Email envoyer avec Successfully...";
+            return "Email envoyé avec succès !";
         }
 
         // Catch block to handle the exceptions
         catch (Exception e) {
-            return "Email modification echouer...";
+            return "Email modification échoué !";
         }
     }
-
     @Override
     public String sendMailWithAttachment(EmailDetails details) {
         return null;

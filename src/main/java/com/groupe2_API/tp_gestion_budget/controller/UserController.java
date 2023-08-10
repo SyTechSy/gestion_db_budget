@@ -37,9 +37,9 @@ public class UserController {
     public ResponseEntity<Object> ajouterUser(@Valid @RequestBody User user) {
         User verificationUser = userService.creerUser(user);
         if (verificationUser != null){
-            return new ResponseEntity<>("Inscription fait avec Succès", HttpStatus.OK);
+            return new ResponseEntity<Object>("Inscription fait avec Succès", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Compte existe déja", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Object>("Compte existe déja", HttpStatus.NO_CONTENT);
         }
     }
 
@@ -61,7 +61,7 @@ public class UserController {
                                             @RequestParam("motDePasse") String motDePasse) {
         User verificationUser = userService.connexionUser(email, motDePasse);
         if (verificationUser != null) {
-            return new ResponseEntity<>("Connection avec Succès", HttpStatus.OK);
+            return new ResponseEntity<>("Connexion avec Succès", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("User n'existe pas", HttpStatus.NOT_FOUND);
         }
