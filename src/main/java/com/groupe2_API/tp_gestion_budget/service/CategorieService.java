@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +52,16 @@ public class CategorieService {
             throw new NotFoundException("On peut modifier quelque chose qui n'existe pas !");
         }
     }
-    public String SupprimerCategorie(Categorie categorie){
-       if (categorieRepository.findById(categorie.getIdCategorie()) != null){
-           categorieRepository.delete(categorie);
-           return "supprimer avec succèss";
-       }
-       throw new NotFoundException("Element introuvable, impossible de le supprimer");
+
+    // Suppresion de mon categorie
+
+    public String deledeCategorie(Categorie categorie) {
+        if (categorieRepository.findByIdCategorie(categorie.getIdCategorie()) != null) {
+            categorieRepository.delete(categorie);
+            return "Succès";
+        } else {
+            return "existe pas";
+        }
     }
 
 }

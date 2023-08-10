@@ -30,7 +30,7 @@ public class DepenseController {
         return depenseService.creerDepense(depense);
     }
 
-    @GetMapping("")
+    @GetMapping("/list")
     @Operation(summary = "Liste des dépenses")
     @ApiResponse(responseCode = "200", description = "Succès",
             content = @Content(schema = @Schema(implementation = Depense.class)))
@@ -58,7 +58,7 @@ public class DepenseController {
         return depenseService.modifier(id,depense);
     }
 
-    @DeleteMapping("/supprimer/{id}")
+    @DeleteMapping("/supprimer")
     @Operation(summary = "Suppression des dépenses par l'identifiant")
     @ApiResponse(responseCode = "200", description = "Succès",
             content = @Content(schema = @Schema(implementation = Depense.class)))

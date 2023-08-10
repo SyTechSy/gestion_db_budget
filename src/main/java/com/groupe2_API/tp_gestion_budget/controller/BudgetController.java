@@ -59,14 +59,19 @@ public class BudgetController {
         }
     }
     //suppression
-    @DeleteMapping("/supprimer/{idBudget}")
+    /**/
+    @DeleteMapping("/supprimer")
     @Operation(summary = "Suppression des budgets")
     @ApiResponse(responseCode = "200", description = "Succès",
             content = @Content(schema = @Schema(implementation = Budget.class)))
     @ApiResponse(responseCode = "404", description = "Non trouvé")
-    public String Budget(@PathVariable int id, @RequestBody Budget budget){
-        budgetService.SupprimerBudget(budget);
-        return "supprimer avec succès";
-    }
+   public ResponseEntity<String> suppressionBudget(@RequestBody Budget budget) {
+       String message = budgetService.deleteCategorie(budget);
+       if (message.equals("Succès"))
+           return new ResponseEntity<>("Suppression avec succès", HttpStatus.OK);
+       else
+           return new ResponseEntity<>("On peut pas supprimer quelque chose qui n'existe pas", HttpStatus.NOT_FOUND);
+
+   }
 
 }

@@ -1,5 +1,6 @@
 package com.groupe2_API.tp_gestion_budget.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -10,6 +11,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,15 +43,16 @@ public class Budget {
     //========================Relation entre budget et categorie====================
 
     @OneToOne
-    @JsonIgnore
+    //@JsonIgnoreProperties(value = {"categorie"})
     @JoinColumn(name = "idCategorie")
     private Categorie categorie;
-    //========================Relation entre budget et user====================
+    //========================
+    // Relation entre budget et user====================
     @ManyToOne
     @JoinColumn(name = "idUser", nullable = false)
     private User user;
 
-
+    @JsonIgnore
   @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
   private List<Depense> depenses = new ArrayList<>();
 }

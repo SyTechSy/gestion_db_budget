@@ -34,9 +34,11 @@ public class Depense {
     @Column(nullable = false)
     private double montant;
 
-    @DateTimeFormat
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@DateTimeFormat
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "date")
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Date date;
 
 

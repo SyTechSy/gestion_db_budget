@@ -27,7 +27,7 @@ public class UserService {
         if(userRepository.findByEmail(user.getEmail()) == null) {
             return userRepository.save(user);
         } else {
-            throw new NoContentException("On peut pas créer une autre catégorie qui existé déjà!");
+            throw new NoContentException("On peut pas créer une autre User qui existé déjà!");
         }
     }
 

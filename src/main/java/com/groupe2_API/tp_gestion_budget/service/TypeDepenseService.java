@@ -47,7 +47,7 @@ public class TypeDepenseService {
 
     public String supprimer(Long id, TypeDepense typeDepense){
         if(typeDepenseRepository.findById(id)!=null){
-            typeDepenseRepository.save(typeDepense);
+            typeDepenseRepository.delete(typeDepense);
             return "suppression effectuée";
         }
         throw new NotFoundException("Suppression est impossible");
