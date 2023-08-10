@@ -1,5 +1,6 @@
 package com.groupe2_API.tp_gestion_budget.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -10,6 +11,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,8 +38,24 @@ public class Budget {
     // ==============================  =======================
 
     //@DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "date")
-    private Date date;
+    /*@Column(name = "date")
+    private Date date;*/
+
+    //===========================================================================================
+
+    // creation date de debut
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    // crreation date de fin
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
+
+    //===========================================================================================
+
 
 
     //========================Relation entre budget et categorie====================
@@ -46,7 +65,8 @@ public class Budget {
     @JsonIgnore
     @JoinColumn(name = "idCategorie")
     private Categorie categorie;
-    //========================Relation entre budget et user====================
+    //========================
+    // Relation entre budget et user====================
     @ManyToOne
     @JsonIgnoreProperties(value = {"budgets"})
     @JoinColumn(name = "idUser", nullable = false)
