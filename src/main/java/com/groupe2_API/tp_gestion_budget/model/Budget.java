@@ -37,38 +37,20 @@ public class Budget {
     private double montantRestant;
     // ==============================  =======================
 
-    //@DateTimeFormat(pattern = "dd-MM-yyyy")
-    /*@Column(name = "date")
-    private Date date;*/
-
-    //===========================================================================================
-
-    // creation date de debut
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "start_date")
-    private LocalDate startDate;
-
-    // crreation date de fin
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "end_date")
-    private LocalDate endDate;
-
-
-    //===========================================================================================
-
-
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "date")
+    private Date date;
 
     //========================Relation entre budget et categorie====================
 
 
     @OneToOne
-    @JsonIgnore
+    //@JsonIgnoreProperties(value = {"categorie"})
     @JoinColumn(name = "idCategorie")
     private Categorie categorie;
     //========================
     // Relation entre budget et user====================
     @ManyToOne
-    @JsonIgnoreProperties(value = {"budgets"})
     @JoinColumn(name = "idUser", nullable = false)
     private User user;
 

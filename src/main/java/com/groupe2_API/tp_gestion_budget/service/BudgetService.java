@@ -55,11 +55,19 @@ public class BudgetService {
 */
     }
     //Pour supprimer un budget
-    public String SupprimerBudget(Budget budget) {
+    /*public String SupprimerBudget(Budget budget) {
         if (budgetRepository.findById(budget.getIdBudget()) != null) {
             budgetRepository.delete(budget);
             return "supprimer avec succèss";
         }
         throw new NotFoundException("On peut supprimer quelque chose qui n'existe pas !");
+    }*/
+
+    public String deleteCategorie(Budget budget) {
+       if (budgetRepository.findByIdBudget(budget.getIdBudget()) != null ) {
+           budgetRepository.delete(budget);
+           return "Succès";
+       } else
+           return "Budget n'existe pas";
     }
 }

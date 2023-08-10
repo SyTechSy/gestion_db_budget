@@ -1,5 +1,7 @@
 package com.groupe2_API.tp_gestion_budget.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -33,5 +35,6 @@ public class Categorie {
     private String description;
 
     @OneToOne(mappedBy = "categorie", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"categorie"})
     private Budget budget;
 }

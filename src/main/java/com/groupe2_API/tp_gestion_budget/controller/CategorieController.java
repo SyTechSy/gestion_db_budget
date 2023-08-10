@@ -2,12 +2,15 @@ package com.groupe2_API.tp_gestion_budget.controller;
 
 import com.groupe2_API.tp_gestion_budget.model.Categorie;
 
+import com.groupe2_API.tp_gestion_budget.model.Depense;
 import com.groupe2_API.tp_gestion_budget.service.CategorieService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,14 +65,22 @@ public class CategorieController {
         }
     }
 
-    @DeleteMapping("/categorie/{idCategorie}")
+
+
+
+    @DeleteMapping("/supprimer")
     @Operation(summary = "suppression  des catégories par son identifiant")
     @ApiResponse(responseCode = "200", description = "Succès",
             content = @Content(schema = @Schema(implementation = Categorie.class)))
     @ApiResponse(responseCode = "404", description = "Non trouvé")
-    public String Categorie(@PathVariable int id, @RequestBody Categorie categorie){
-        categorieService.SupprimerCategorie(categorie);
-        return "supprimer avec succèss";
+    public ResponseEntity<String> suppresionCategorie(@RequestBody Categorie categorie) {
+        String message = categorieService.deledeCategorie(categorie);
+        if (message.equals("Succès")) {
+            return new ResponseEntity<>("Suppression avec succès", HttpStatus.OK);
+        } else
+            return new ResponseEntity<>("On peut pas suppremier quelque chose qui n'existe pas", HttpStatus.NOT_FOUND);
+
     }
+
 
 }

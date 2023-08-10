@@ -101,7 +101,6 @@ public class DepenseService {
         throw new NotFoundException("Cette dépense n'existe pas et ne pas être supprimer");
     }
 
-// bien
 
 
 }
