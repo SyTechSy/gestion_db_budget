@@ -13,7 +13,6 @@ import com.groupe2_API.tp_gestion_budget.repository.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,7 +38,7 @@ public class DepenseService {
     public String creerDepense(Depense depense) {
         // Récupérer le budget associé à la dépense
         Budget budget = budgetRepository.findById(depense.getBudget().getIdBudget()).orElse(null);
-        List<Depense> depenses = new ArrayList<>();
+
         if (budget == null) {
             return "Budget non trouvé pour l'ID spécifié.";
         }
@@ -53,19 +52,21 @@ public class DepenseService {
             // Enregistrer la dépense
             depenseRepository.save(depense);
 
-            // Mettre à jour le montant restant dans le budget à la base de donnée
-            depenses.add(depense);
-            double totalD = 0;
-            for (Depense depense1: depenses) {
-                totalD  += depense1.getMontant();
-            }
-
-            double montantRestant = montantBudget - totalD;
+            // Mettre à jour le montant restant dans le budget
+            double montantRestant = budget.getMontantRestant() - montantDepense;
             budget.setMontantRestant(montantRestant);
             budgetRepository.save(budget);
 
             // envoyer emaill a chaque depense
+            /*
             String msg = "Votre budget est de " + budget.getMontant() + " Fcfa." + "\nPour une depense de " + budget.getCategorie().getTitre() + ". \nMaintenant votre solde principale est de : " + budget.getMontantRestant() + " Fcfa !";
+            EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
+            emailService.sendSimpleMail(details);
+             */
+
+            String msg = "Votre budget etait de " + budget.getMontant() + " FCFA. " +
+                    "\nPaiement de " + depense.getMontant() + " FCFA pour une depense de " +
+                    budget.getCategorie().getTitre() + "\nDette: 0 FCFA. Nouveau Solde est : " + budget.getMontantRestant() + " FCFA !";
             EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
             emailService.sendSimpleMail(details);
 
