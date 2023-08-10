@@ -45,24 +45,36 @@ public class DepenseService {
 
         double montantDepense = depense.getMontant();
         double montantBudget = budget.getMontant();
-
-        if (montantDepense > montantBudget) {
+        double montantRestant  = budget.getMontant();
+        if(montantDepense > montantBudget)  {
             return "Le montant de la dépense ne doit pas dépasser celui du budget.";
         } else {
-            // Enregistrer la dépense
-            depenseRepository.save(depense);
+            if (montantBudget  == 500){
+                return "Vous avez epuisé votre budget";
+            } else {
+                // Enregistrer la dépense
+                depenseRepository.save(depense);
+                montantRestant  = budget.getMontant();
 
-            // Mettre à jour le montant restant dans le budget
-            double montantRestant = budget.getMontantRestant() - montantDepense;
-            budget.setMontantRestant(montantRestant);
-            budgetRepository.save(budget);
+                // Mettre à jour le montant restant dans le budget
+                montantRestant = budget.getMontantRestant() - montantDepense;
+                budget.setMontantRestant(montantRestant);
+                budgetRepository.save(budget);
 
-            // envoyer emaill a chaque depense
-            /*
-            String msg = "Votre budget est de " + budget.getMontant() + " Fcfa." + "\nPour une depense de " + budget.getCategorie().getTitre() + ". \nMaintenant votre solde principale est de : " + budget.getMontantRestant() + " Fcfa !";
-            EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
-            emailService.sendSimpleMail(details);
-             */
+
+
+                // =========================================================
+
+                String msg = "Attention Vous ne pouvez plus effectuez un autre depense. \nVotre budget ne doit pas diminuer au dessous de " +  budget.getMontantRestant() + " FCFA !";
+                EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Urgent");
+                emailService.sendSimpleMail(details);
+
+
+
+            }
+        }
+
+
 
             String msg = "Votre budget etait de " + budget.getMontant() + " FCFA. " +
                     "\nPaiement de " + depense.getMontant() + " FCFA pour une depense de " +
@@ -72,9 +84,6 @@ public class DepenseService {
 
             return "Dépense créée avec succès. Montant restant dans le budget : " + montantRestant;
         }
-
-
-    }
 
 
     public List<Depense> list(){
