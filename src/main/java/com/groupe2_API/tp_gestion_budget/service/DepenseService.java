@@ -70,7 +70,7 @@ public class DepenseService {
 
             }
 
-            String msg = "Votre budget etait de " + budget.getMontant() + " FCFA. " +
+            String msg = "Votre budget etait de : " + budget.getMontant() + " FCFA. " +
                     "\nPaiement de " + depense.getMontant() + " FCFA pour une depense de " +
                     budget.getCategorie().getTitre() + "\nDette: 0 FCFA. Nouveau Solde est : " + budget.getMontantRestant() + " FCFA !";
             EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
