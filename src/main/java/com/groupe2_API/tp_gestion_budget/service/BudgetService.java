@@ -23,11 +23,21 @@ public class BudgetService {
     //Methode pour créer un budget
 
     public Budget creerBudget(Budget budget) {
+
+
+           double mt_tot = budget.getMontant();
+
         if (budgetRepository.findByIdBudget(budget.getIdBudget()) == null) {
-            return budgetRepository.save(budget);
-        } else {
+
+            budget.setMontantRestant(mt_tot);
+            return  budgetRepository.save(budget);
+        }
+
+        else {
             throw new DuplicateException("On peut pas creer un autre categorie qui existé déjà!");
         }
+      //  throw new DuplicateException("On peut pas creer un autre categorie qui existé déjà!");
+
     }
 
     //Methode pour modifer un budget
