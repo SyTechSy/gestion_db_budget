@@ -66,7 +66,7 @@ public class BudgetController {
             content = @Content(schema = @Schema(implementation = Budget.class)))
     @ApiResponse(responseCode = "404", description = "Non trouvé")
    public ResponseEntity<String> suppressionBudget(@RequestBody Budget budget) {
-       String message = budgetService.deleteCategorie(budget);
+       String message = budgetService.deleteBudget(budget);
        if (message.equals("Succès"))
            return new ResponseEntity<>("Suppression avec succès", HttpStatus.OK);
        else

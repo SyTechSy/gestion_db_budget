@@ -63,7 +63,7 @@ public class BudgetService {
         throw new NotFoundException("On peut supprimer quelque chose qui n'existe pas !");
     }*/
 
-    public String deleteCategorie(Budget budget) {
+    public String deleteBudget(Budget budget) {
        if (budgetRepository.findByIdBudget(budget.getIdBudget()) != null ) {
            budgetRepository.delete(budget);
            return "Succès";
