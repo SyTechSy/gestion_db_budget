@@ -35,14 +35,12 @@ public class Budget {
 
     @Column(nullable = false)
     private double montantRestant;
-    // ==============================  =======================
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date")
     private Date date;
 
     //========================Relation entre budget et categorie====================
-
 
     @OneToOne
     //@JsonIgnoreProperties(value = {"categorie"})
