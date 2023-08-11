@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Categorie {
@@ -34,7 +36,7 @@ public class Categorie {
     @Column(nullable = false)
     private String description;
 
-    @OneToOne(mappedBy = "categorie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = {"categorie"})
-    private Budget budget;
+    private List<Budget> budget;
 }

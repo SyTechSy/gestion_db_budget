@@ -42,7 +42,7 @@ public class Budget {
 
     //========================Relation entre budget et categorie====================
 
-    @OneToOne
+    @ManyToOne
     //@JsonIgnoreProperties(value = {"categorie"})
     @JoinColumn(name = "idCategorie")
     private Categorie categorie;
