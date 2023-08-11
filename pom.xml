@@ -18,6 +18,12 @@
 	</properties>
 	<dependencies>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+
 		<!-- Les dependences de swagger -->
 		<dependency>
 			<groupId>org.springdoc</groupId>

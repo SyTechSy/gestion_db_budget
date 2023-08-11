@@ -45,36 +45,30 @@ public class DepenseService {
 
         double montantDepense = depense.getMontant();
         double montantBudget = budget.getMontant();
-        double montantRestant  = budget.getMontant();
+
         if(montantDepense > montantBudget)  {
             return "Le montant de la dépense ne doit pas dépasser celui du budget.";
         } else {
-            if (montantBudget  == 500){
-                return "Vous avez epuisé votre budget";
-            } else {
+
                 // Enregistrer la dépense
                 depenseRepository.save(depense);
-                montantRestant  = budget.getMontant();
+
 
                 // Mettre à jour le montant restant dans le budget
-                montantRestant = budget.getMontantRestant() - montantDepense;
+                double montantRestant = budget.getMontantRestant() - montantDepense;
                 budget.setMontantRestant(montantRestant);
                 budgetRepository.save(budget);
 
 
-
                 // =========================================================
-
+                /*
                 String msg = "Attention Vous ne pouvez plus effectuez un autre depense. \nVotre budget ne doit pas diminuer au dessous de " +  budget.getMontantRestant() + " FCFA !";
                 EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Urgent");
                 emailService.sendSimpleMail(details);
-
+                */
 
 
             }
-        }
-
-
 
             String msg = "Votre budget etait de " + budget.getMontant() + " FCFA. " +
                     "\nPaiement de " + depense.getMontant() + " FCFA pour une depense de " +
@@ -82,7 +76,7 @@ public class DepenseService {
             EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
             emailService.sendSimpleMail(details);
 
-            return "Dépense créée avec succès. Montant restant dans le budget : " + montantRestant;
+            return "Dépense créée avec succès. Montant restant dans le budget : " + budget.getMontantRestant();
         }
 
 
