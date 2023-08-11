@@ -24,7 +24,7 @@ public class CategorieService {
         if (categorieRepository.findByTitre(categorie.getTitre()) == null){
             return categorieRepository.save(categorie);
         } else {
-            throw new NoContentException("On peut pas creer un autre categorie qui existé déjà!");
+            throw new NoContentException("La categorie existe déjà!");
         }
     }
     //La liste des categories

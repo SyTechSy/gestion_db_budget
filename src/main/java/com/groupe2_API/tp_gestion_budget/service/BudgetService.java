@@ -46,7 +46,7 @@ public class BudgetService {
     public ResponseEntity<List<Budget>> getAllBudget() {
         List<Budget> budgetList = budgetRepository.findAll();
         if (budgetList.isEmpty())
-            throw new NoContentException("La liste de budget est introuvable");
+            throw new NoContentException("La liste de budget est vide");
 
         return new ResponseEntity<>(budgetList, HttpStatus.OK);
         /*try {
@@ -63,7 +63,7 @@ public class BudgetService {
             budgetRepository.delete(budget);
             return "supprimer avec succèss";
         }
-        throw new NotFoundException("On peut supprimer quelque chose qui n'existe pas !");
+        throw new NotFoundException("On peut pas supprimer quelque chose qui n'existe pas !");
     }
 
 

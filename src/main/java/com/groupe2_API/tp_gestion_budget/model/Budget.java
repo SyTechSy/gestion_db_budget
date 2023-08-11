@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,20 +29,33 @@ public class Budget {
     @Column(nullable = false)
     private double montant;
 
+    @Column(nullable = false)
+    private double montantRestant;
+
 
     @NotNull(message = "Le champs date debut ne doit pas être vide")
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date dateDebut;
+    private LocalDate dateDebut;
 
     @NotNull(message = "Le champs date fin ne doit pas être vide")
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date dateFin;
+    private LocalDate dateFin;
 
     @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonIgnore
-    private List<Depense> depenses;
+    private List<Depense> depenses = new ArrayList<>();
+
+
+    @ManyToOne
+    @JoinColumn(name = "idCategorie" , nullable = false)
+    private Categorie categorie;
+
+
+
+
+
 
 
     /*

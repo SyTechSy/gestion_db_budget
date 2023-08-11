@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -34,7 +36,7 @@ public class Depense {
     @DateTimeFormat
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Date date;
+    private LocalDate date;
 
 
     @ManyToOne

@@ -7,31 +7,27 @@ import com.groupe2_API.tp_gestion_budget.model.Budget;
 import com.groupe2_API.tp_gestion_budget.model.Categorie;
 import com.groupe2_API.tp_gestion_budget.model.Depense;
 import com.groupe2_API.tp_gestion_budget.model.EmailDetails;
-import com.groupe2_API.tp_gestion_budget.repository.BudgetRepository;
-import com.groupe2_API.tp_gestion_budget.repository.DepenseRepository;
-import com.groupe2_API.tp_gestion_budget.repository.EmailService;
+import com.groupe2_API.tp_gestion_budget.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class DepenseService {
-
-<<<<<<< HEAD
-    public final DepenseRepository depenseRepository;
-    public final BudgetService budgetService;
-=======
     @Autowired
-     DepenseRepository depenseRepository;
+    DepenseRepository depenseRepository;
     @Autowired
     BudgetService budgetService;
     @Autowired
     BudgetRepository budgetRepository;
->>>>>>> 9a0267b3d03b5819a419d3fb222f64c425df3c2e
-
     @Autowired
     EmailService emailService;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    TypeDepenseRepository typeDepenseRepository;
 
 
 
@@ -39,6 +35,7 @@ public class DepenseService {
 
         return depenseRepository.save(depense);
     }*/
+
 
     public String creerDepense(Depense depense) {
         // Récupérer le budget associé à la dépense
@@ -50,6 +47,12 @@ public class DepenseService {
 
         double montantDepense = depense.getMontant();
         double montantBudget = budget.getMontant();
+        LocalDate dateDepense = depense.getDate();
+
+        if (dateDepense.isBefore(budget.getDateDebut()) || dateDepense.isAfter(LocalDate.now())) {
+            throw new NoContentException("Verifier si la date n'est pas inferieur a la date de but du budget ou s'elle n'est superieur a aujourd'hui") ;
+        }
+
 
         if (montantDepense > montantBudget) {
             return "Le montant de la dépense ne doit pas dépasser celui du budget.";
@@ -61,17 +64,12 @@ public class DepenseService {
             double montantRestant = montantBudget - montantDepense;
             budget.setMontantRestant(montantRestant);
             budgetRepository.save(budget);
-
-<<<<<<< HEAD
             // envoyer emaill a chaque depense
             String msg = "Votre budget est de " + budget.getMontant() + " Fcfa." + "\nPour une depense de " + budget.getCategorie().getTitre() + ". \nMaintenant votre solde principale est de : " + budget.getMontantRestant() + " Fcfa !";
             EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Détaille de votre depense");
             emailService.sendSimpleMail(details);
 
             return "Dépense créée avec succès. Montant restant dans le budget : " + montantRestant;
-=======
-            return "Dépense crée avec succès. Montant restant dans le budget : " + montantRestant;
->>>>>>> 5c531623258f5be4af1c5cfb0c35da7c61ae6181
         }
 
 

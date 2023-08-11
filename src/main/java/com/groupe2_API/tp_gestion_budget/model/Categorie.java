@@ -1,9 +1,13 @@
 package com.groupe2_API.tp_gestion_budget.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -32,6 +36,7 @@ public class Categorie {
     @Column(nullable = false)
     private String description;
 
-    @OneToOne(mappedBy = "categorie", cascade = CascadeType.ALL)
-    private Budget budget;
+    @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Budget> budgets = new ArrayList<>();
 }
