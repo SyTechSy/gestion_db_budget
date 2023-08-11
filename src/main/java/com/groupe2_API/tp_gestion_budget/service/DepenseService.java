@@ -48,6 +48,12 @@ public class DepenseService {
 
         if(montantDepense > montantBudget)  {
             return "Le montant de la dépense ne doit pas dépasser celui du budget.";
+        }  else if (budgetRepository.findByIdBudget(depense.getBudget().getIdBudget()).
+                getMontantRestant() <= budget.getMontantRestant() * 0.3 ) {
+               // System.out.println("Attention il ne vous reste plus que "+budget.getMontantRestant() * 0.3+" dans votre budget" );
+            String msg = "Attention il ne vous reste plus que "+budget.getMontantRestant() * 0.3+" dans votre budget";
+            EmailDetails details = new EmailDetails(depense.getUser().getEmail(),msg,"Urgent Urgent");
+            emailService.sendSimpleMail(details);
         } else {
 
                 // Enregistrer la dépense

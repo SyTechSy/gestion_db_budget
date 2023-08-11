@@ -25,7 +25,7 @@ public class BudgetService {
     public Budget creerBudget(Budget budget) {
 
 
-           double mt_tot = budget.getMontant();
+        double mt_tot = budget.getMontant();
 
         if (budgetRepository.findByIdBudget(budget.getIdBudget()) == null) {
 
